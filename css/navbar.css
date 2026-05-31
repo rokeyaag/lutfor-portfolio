@@ -3,103 +3,155 @@
 ========================= */
 
 .header{
+
   width:100%;
+
   padding:22px 70px;
+
   position:fixed;
+
   top:0;
+
   left:0;
+
   z-index:999;
+
   backdrop-filter:blur(20px);
 }
 
 /* NAVBAR */
 
 .navbar{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   padding:18px 35px;
+
   background:rgba(5,8,22,.85);
+
   backdrop-filter:blur(18px);
+
   border:1px solid rgba(255,255,255,.08);
+
   border-radius:20px;
+
   box-shadow:0 0 25px rgba(124,58,237,.15);
 }
 
 /* LOGO */
 
 .logo{
+
   display:flex;
+
   align-items:center;
+
   gap:12px;
 }
 
 .logo img{
+
   width:45px;
 }
 
 .logo span{
+
   font-size:1rem;
+
   font-weight:800;
+
   color:#fff;
+
   letter-spacing:1px;
 }
 
 /* LINKS */
 
 .nav-links{
+
   display:flex;
+
   gap:35px;
 }
 
 .nav-links a{
+
   color:#cbd5e1;
+
   font-weight:600;
+
   position:relative;
+
   transition:.3s;
 }
 
 .nav-links a:hover{
+
   color:#a855f7;
 }
 
 .nav-links a::after{
+
   content:"";
+
   position:absolute;
+
   left:0;
+
   bottom:-6px;
+
   width:0;
+
   height:2px;
-  background:linear-gradient(
+
+  background:
+  linear-gradient(
     90deg,
     #2563eb,
     #a855f7
   );
+
   transition:.3s;
 }
 
 .nav-links a:hover::after{
+
   width:100%;
 }
 
 /* CV BUTTON */
 
 .cv-btn{
-  background:linear-gradient(
+
+  background:
+  linear-gradient(
     135deg,
     #3b82f6,
     #8b5cf6
   );
+
   color:#fff;
+
   padding:14px 30px;
+
   border-radius:20px;
+
   font-weight:700;
+
   display:inline-flex;
+
   align-items:center;
+
   gap:10px;
+
   transition:.4s;
 }
 
 .cv-btn:hover{
+
   transform:translateY(-3px);
 }

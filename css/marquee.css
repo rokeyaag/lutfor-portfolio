@@ -1,0 +1,73 @@
+/* ==========================
+   TECH MARQUEE
+========================== */
+
+.tech-marquee{
+
+  width:100%;
+
+  overflow:hidden;
+
+  padding:50px 0;
+
+  margin:50px 0;
+
+  background:rgba(255,255,255,.02);
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.tech-title{
+
+  text-align:center;
+
+  color:#fff;
+
+  font-size:2rem;
+
+  margin-bottom:40px;
+}
+
+.marquee-content{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:70px;
+
+  width:max-content;
+
+  animation:marquee 20s linear infinite;
+}
+
+.marquee-content img{
+
+  width:70px !important;
+
+  height:70px !important;
+
+  object-fit:contain;
+
+  flex-shrink:0;
+}
+
+.marquee-content img:hover{
+
+  transform:scale(1.15);
+
+  transition:.3s;
+}
+
+@keyframes marquee{
+
+  from{
+    transform:translateX(100%);
+  }
+
+  to{
+    transform:translateX(-100%);
+  }
+}

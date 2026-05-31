@@ -1,0 +1,323 @@
+/* =========================
+   LARGE DEVICES
+========================= */
+
+@media (max-width: 1200px){
+
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:140px 40px 80px;
+  }
+
+  .hero-text p{
+    margin:auto;
+  }
+
+  .social-links{
+    justify-content:center;
+  }
+
+  .hero-buttons{
+    justify-content:center;
+  }
+
+  .hero-image{
+    height:auto;
+  }
+
+  .image-box{
+    width:420px;
+    height:auto;
+  }
+
+  .about-container{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px){
+
+  .header{
+    padding:15px 20px;
+  }
+
+  .navbar{
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+  }
+
+  .hero-text h1{
+    font-size:3rem;
+  }
+
+  .hero-text h2{
+    font-size:1.5rem;
+  }
+
+  .projects-grid,
+  .skills-grid{
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+  }
+
+  .contact-container{
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px){
+
+  .hero{
+    padding:120px 20px 60px;
+  }
+
+  .hero-text h1{
+    font-size:2.3rem;
+  }
+
+  .hero-text h2{
+    font-size:1.2rem;
+  }
+
+  .hero-text p{
+    font-size:.95rem;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .primary-btn,
+  .cv-btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .social-links{
+    flex-wrap:wrap;
+  }
+
+  .projects-page,
+  .skills-page,
+  .contact-page,
+  .about-page{
+    padding:90px 20px;
+  }
+
+  .projects-header h1,
+  .skills-header h1,
+  .contact-header h1,
+  .about-header h1{
+    font-size:2.2rem;
+  }
+
+  .project-links{
+    flex-direction:column;
+  }
+
+  .about-highlights{
+    grid-template-columns:1fr;
+  }
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px){
+
+  .logo span{
+    font-size:.8rem;
+  }
+
+  .hero-text h1{
+    font-size:1.9rem;
+  }
+
+  .hero-text h2{
+    font-size:1rem;
+  }
+
+  .image-box{
+    width:280px;
+  }
+
+  .skill-category{
+    font-size:1.3rem;
+  }
+
+  .project-card img{
+    height:180px;
+  }
+
+  .footer-social{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .hero-image{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-top:20px;
+  }
+
+  .image-box{
+
+    width:260px !important;
+
+    height:260px !important;
+
+    margin:auto;
+  }
+
+  .image-box img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+  }
+
+  /* Orbit Icons */
+
+  .orbit{
+
+    width:70px !important;
+
+    height:70px !important;
+
+    font-size:1.5rem !important;
+  }
+
+  .orbit-1{
+
+    top:20px !important;
+
+    left:10px !important;
+  }
+
+  .orbit-2{
+
+    top:20px !important;
+
+    right:10px !important;
+  }
+
+  .orbit-3{
+
+    bottom:140px !important;
+
+    left:0 !important;
+  }
+
+  .orbit-4{
+
+    bottom:140px !important;
+
+    right:0 !important;
+  }
+
+  .orbit-5{
+
+    bottom:20px !important;
+
+    left:50% !important;
+
+    transform:translateX(-50%);
+  }
+
+  .available{
+
+    bottom:-20px !important;
+
+    left:50% !important;
+
+    transform:translateX(-50%);
+  }
+
+}
+@media(max-width:768px){
+
+  .header{
+
+    position:static !important;
+
+    padding:15px;
+  }
+
+  .navbar{
+
+    flex-direction:column;
+
+    gap:15px;
+
+    position:static !important;
+  }
+
+  .nav-links{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:12px;
+  }
+
+}
+@media (max-width:768px){
+
+  .header{
+
+    position:relative !important;
+
+    top:auto !important;
+
+    left:auto !important;
+
+    right:auto !important;
+
+    bottom:auto !important;
+
+    z-index:1 !important;
+  }
+
+  .navbar{
+
+    position:relative !important;
+
+    top:auto !important;
+  }
+
+}
