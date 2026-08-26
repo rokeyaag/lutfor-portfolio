@@ -67,7 +67,7 @@ a{
   display:grid;
 
   grid-template-columns:
-  repeat(auto-fit,minmax(320px,1fr));
+  repeat(3, 1fr);
 
   gap:30px;
 }
@@ -87,6 +87,10 @@ a{
   backdrop-filter:blur(12px);
 
   transition:.4s;
+
+  display:flex;
+
+  flex-direction:column;
 }
 
 .project-card:hover{
@@ -113,6 +117,14 @@ a{
 .project-content{
 
   padding:25px;
+
+  flex:1;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
 }
 
 .project-content h3{
@@ -221,6 +233,16 @@ a{
   0 10px 30px rgba(139,92,246,.3);
 }
 
+@media(max-width:1024px){
+
+  .projects-grid{
+
+    grid-template-columns:repeat(2, 1fr);
+
+    gap:20px;
+  }
+}
+
 @media(max-width:768px){
 
   .projects-page{
@@ -231,5 +253,12 @@ a{
   .projects-header h1{
 
     font-size:2.2rem;
+  }
+
+  .projects-grid{
+
+    grid-template-columns:1fr;
+
+    gap:20px;
   }
 }
