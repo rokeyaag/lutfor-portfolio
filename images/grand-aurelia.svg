@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07090e" />
+      <stop offset="40%" stop-color="#12100e" />
+      <stop offset="80%" stop-color="#1a150c" />
+      <stop offset="100%" stop-color="#080705" />
+    </linearGradient>
+
+    <!-- Gold Center Radial Glow -->
+    <radialGradient id="goldCenterGlow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.38" />
+      <stop offset="50%" stop-color="#d97706" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#12100e" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Amber Accent Glow -->
+    <radialGradient id="amberGlow" cx="80%" cy="20%" r="45%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.30" />
+      <stop offset="100%" stop-color="#12100e" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Emerald Ambient Glow -->
+    <radialGradient id="emeraldAmbientGlow" cx="20%" cy="80%" r="45%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#12100e" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Gold Foil Luxury Gradient -->
+    <linearGradient id="goldFoilGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="35%" stop-color="#f59e0b" />
+      <stop offset="70%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Title Gradient -->
+    <linearGradient id="titleGoldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="25%" stop-color="#fef08a" />
+      <stop offset="55%" stop-color="#fbbf24" />
+      <stop offset="80%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+
+    <!-- Crown Icon Gradient -->
+    <linearGradient id="crownGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="40%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="goldCardShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000000" flood-opacity="0.75" />
+    </filter>
+    
+    <filter id="goldGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Deep Luxury Background -->
+  <rect width="800" height="480" fill="url(#bgGradGold)" />
+  <rect width="800" height="480" fill="url(#goldCenterGlow)" />
+  <rect width="800" height="480" fill="url(#amberGlow)" />
+  <rect width="800" height="480" fill="url(#emeraldAmbientGlow)" />
+
+  <!-- Subtle Geometric Lattice Pattern -->
+  <g stroke="#78350f" stroke-width="1" stroke-opacity="0.22">
+    <line x1="0" y1="80" x2="800" y2="80" />
+    <line x1="0" y1="160" x2="800" y2="160" />
+    <line x1="0" y1="240" x2="800" y2="240" />
+    <line x1="0" y1="320" x2="800" y2="320" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="160" y1="0" x2="160" y2="480" />
+    <line x1="320" y1="0" x2="320" y2="480" />
+    <line x1="480" y1="0" x2="480" y2="480" />
+    <line x1="640" y1="0" x2="640" y2="480" />
+  </g>
+
+  <!-- Central Glassmorphic Luxury Badge Container -->
+  <g transform="translate(400, 175)" filter="url(#goldCardShadow)">
+    <!-- Outer Glow Dashed Gold Ring -->
+    <circle cx="0" cy="0" r="95" fill="none" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.55" stroke-dasharray="8, 6" />
+    
+    <!-- Squircle Icon Box -->
+    <rect x="-70" y="-70" width="140" height="140" rx="36" fill="#18130c" stroke="#f59e0b" stroke-width="3" stroke-opacity="0.9" />
+    <rect x="-68" y="-68" width="136" height="136" rx="34" fill="#0f0c07" fill-opacity="0.85" />
+
+    <!-- 3D Glowing 5-Star Crown & Cutlery Luxury Emblem -->
+    <g transform="translate(0, -2)" filter="url(#goldGlow)">
+      <!-- Outer Ring -->
+      <circle cx="0" cy="0" r="44" fill="none" stroke="rgba(245, 158, 11, 0.4)" stroke-width="2" />
+      
+      <!-- 5-Star Orbit Nodes -->
+      <circle cx="0" cy="-44" r="5" fill="#fef08a" stroke="#d97706" stroke-width="1.2" />
+      <circle cx="42" cy="-14" r="4.5" fill="#fef08a" stroke="#d97706" stroke-width="1.2" />
+      <circle cx="-42" cy="-14" r="4.5" fill="#fef08a" stroke="#d97706" stroke-width="1.2" />
+      <circle cx="26" cy="35" r="4.5" fill="#fef08a" stroke="#d97706" stroke-width="1.2" />
+      <circle cx="-26" cy="35" r="4.5" fill="#fef08a" stroke="#d97706" stroke-width="1.2" />
+
+      <!-- Center Gold Hexagonal Core -->
+      <polygon points="0,-28 24,-14 24,14 0,28 -24,14 -24,-14" fill="url(#goldFoilGrad)" stroke="#fef08a" stroke-width="1.8" />
+      
+      <!-- Royal Crown Silhouette in Core -->
+      <path d="M -15 -6 L -18 10 L 18 10 L 15 -6 L 7 2 L 0 -12 L -7 2 Z" fill="#1c1409" stroke="#ffffff" stroke-width="0.8" />
+      <circle cx="0" cy="-13" r="2" fill="#ffffff" />
+      <circle cx="-15" cy="-7" r="1.5" fill="#ffffff" />
+      <circle cx="15" cy="-7" r="1.5" fill="#ffffff" />
+      <rect x="-14" y="12" width="28" height="3" rx="1.5" fill="#ffffff" />
+    </g>
+  </g>
+
+  <!-- Top Badge: 5-STAR HOSPITALITY & RESTAURANT POS -->
+  <g transform="translate(400, 48)">
+    <rect x="-200" y="-15" width="400" height="30" rx="15" fill="#1c1409" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.85" />
+    <text x="0" y="5" font-family="Inter, system-ui, sans-serif" font-weight="800" font-size="11" fill="#fef08a" letter-spacing="2" text-anchor="middle">👑 5-STAR HOSPITALITY &amp; RESTAURANT SUITE</text>
+  </g>
+
+  <!-- Brand Title -->
+  <g transform="translate(400, 310)">
+    <text x="0" y="0" font-family="Inter, system-ui, -apple-system, sans-serif" font-weight="900" font-size="32" fill="url(#titleGoldGrad)" letter-spacing="4" text-anchor="middle" filter="url(#goldGlow)">GRAND AURELIA</text>
+  </g>
+
+  <!-- Subtitle Tagline -->
+  <g transform="translate(400, 345)">
+    <text x="0" y="0" font-family="Inter, system-ui, -apple-system, sans-serif" font-weight="600" font-size="14" fill="#cbd5e1" letter-spacing="1" text-anchor="middle">Enterprise Fine Dining POS, Hotel Suite, KDS &amp; Food Delivery</text>
+  </g>
+
+  <!-- 4 Feature Pills on Bottom matching other cards -->
+  <g transform="translate(400, 410)">
+    <!-- Pill 1: Hotel Suite -->
+    <g transform="translate(-255, 0)">
+      <rect x="-70" y="-15" width="140" height="30" rx="15" fill="#120e09" stroke="#f59e0b" stroke-width="1.2" />
+      <text x="0" y="4" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#fbbf24" text-anchor="middle">🏨 Hotel PMS</text>
+    </g>
+    
+    <!-- Pill 2: Waiter POS -->
+    <g transform="translate(-85, 0)">
+      <rect x="-70" y="-15" width="140" height="30" rx="15" fill="#120e09" stroke="#38bdf8" stroke-width="1.2" />
+      <text x="0" y="4" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#38bdf8" text-anchor="middle">🍽️ Waiter POS</text>
+    </g>
+
+    <!-- Pill 3: Kitchen KDS -->
+    <g transform="translate(85, 0)">
+      <rect x="-70" y="-15" width="140" height="30" rx="15" fill="#120e09" stroke="#10b981" stroke-width="1.2" />
+      <text x="0" y="4" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#34d399" text-anchor="middle">⚡ Kitchen KDS</text>
+    </g>
+
+    <!-- Pill 4: Live Tracking -->
+    <g transform="translate(255, 0)">
+      <rect x="-70" y="-15" width="140" height="30" rx="15" fill="#120e09" stroke="#a855f7" stroke-width="1.2" />
+      <text x="0" y="4" font-family="Inter, sans-serif" font-weight="700" font-size="11" fill="#c084fc" text-anchor="middle">🛵 Live Delivery</text>
+    </g>
+  </g>
+</svg>
