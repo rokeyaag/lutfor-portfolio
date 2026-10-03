@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parental Screen Tracker 2.0 - Live Interactive Demo | Cross-Platform Child Monitor</title>
+  <meta name="description" content="Cross-Platform Screen Time & Child Activity Monitor with Windows Background Service, Real-Time Active Window Tracking, Game Enforcer, Offline SQLite Sync to PostgreSQL 16 & React Native App by Lutfor Rahman">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            },
+            accent: {
+              400: '#a855f7',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+            },
+            danger: {
+              400: '#f87171',
+              500: '#ef4444',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            dark: {
+              950: '#030712',
+              900: '#090d16',
+              850: '#0f172a',
+              800: '#1e293b',
+              750: '#15203b',
+              700: '#334155',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                  #070b14;
+      color: #f1f5f9;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    .glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+    .pulse-glow-green {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-50 bg-[#070b14]/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 text-slate-400 hover:text-white transition font-medium text-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Portfolio</span>
+        </a>
+        <span class="text-slate-600">/</span>
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-accent-600 flex items-center justify-center text-white text-sm shadow-lg shadow-brand-500/20">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <span class="font-bold text-white text-base tracking-tight">Parental Screen Tracker <span class="text-xs bg-brand-500/20 text-brand-400 px-2 py-0.5 rounded-full border border-brand-500/30">v2.0 Live</span></span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Device Connected: Laptop-Children</span>
+        </div>
+        <a href="https://github.com/rokeyaag/parental-screen-tracker" target="_blank" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-2 transition border border-slate-700">
+          <i class="fa-brands fa-github text-sm"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- HERO HEADER & SUMMARY -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+          Child Screen & Activity Monitor
+          <span class="text-xs bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Live System</span>
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">Cross-platform parental enforcement engine with real-time window tracking & SQLite-to-PostgreSQL offline resilience.</p>
+      </div>
+
+      <!-- Live Action Buttons -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <button id="studyModeBtn" onclick="toggleStudyMode()" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span id="studyModeText">Study Mode: OFF</span>
+        </button>
+        <button onclick="simulateEmergencyLock()" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-rose-600/20 text-rose-300 border border-rose-500/40 hover:bg-rose-600 hover:text-white">
+          <i class="fa-solid fa-lock"></i>
+          <span>Instant Lock</span>
+        </button>
+        <button onclick="simulateLiveEvent()" class="px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-brand-500/20 text-brand-300 border border-brand-500/40 hover:bg-brand-500 hover:text-white">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Simulate Activity</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STATS CARDS GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Card 1: Today Usage -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider">Screen Time Today</span>
+          <div class="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-stopwatch"></i>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span id="screenTimeVal" class="text-3xl font-extrabold text-white">2h 45m</span>
+          <span class="text-xs font-semibold text-slate-400">/ 4h Quota</span>
+        </div>
+        <!-- Progress bar -->
+        <div class="w-full bg-slate-800 rounded-full h-2 mt-4 overflow-hidden">
+          <div id="screenTimeBar" class="bg-gradient-to-r from-brand-500 to-emerald-400 h-2 rounded-full" style="width: 68%;"></div>
+        </div>
+        <div class="flex justify-between items-center text-[11px] text-slate-400 mt-2 font-medium">
+          <span>68% Quota Used</span>
+          <span class="text-emerald-400 font-semibold">1h 15m remaining</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Active App -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider">Active Foreground App</span>
+          <div class="w-8 h-8 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-gamepad"></i>
+          </div>
+        </div>
+        <div class="text-xl font-bold text-white truncate" id="activeAppName">Roblox (Gaming)</div>
+        <div class="text-xs text-slate-400 mt-1 truncate" id="activeAppTitle">Roblox Player - Blox Fruits v17</div>
+        <div class="flex items-center gap-2 mt-4 text-xs font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-lg w-fit">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="activeAppWarning">Limit: 45m / 60m used</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Enforcer & Rules -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider">Active Rules Enforced</span>
+          <div class="w-8 h-8 rounded-lg bg-accent-500/10 text-accent-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-extrabold text-white">22</span>
+          <span class="text-xs font-semibold text-slate-400">Rules Active</span>
+        </div>
+        <div class="flex items-center gap-2 mt-4 text-xs font-semibold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2.5 py-1 rounded-lg w-fit">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Background Service: Active</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Database Sync Status -->
+      <div class="glass-card rounded-2xl p-5 relative overflow-hidden transition-all duration-300">
+        <div class="flex items-center justify-between text-slate-400 mb-2">
+          <span class="text-xs font-bold uppercase tracking-wider">Offline & Sync Engine</span>
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-database"></i>
+          </div>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-extrabold text-emerald-400">Synced</span>
+          <span class="text-xs font-semibold text-slate-400">PostgreSQL 16</span>
+        </div>
+        <div class="flex items-center gap-2 mt-4 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg w-fit">
+          <i class="fa-solid fa-check-circle"></i>
+          <span>SQLite Buffer: 0 pending</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTS SECTION -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- 7-Day Trend Bar Chart -->
+      <div class="glass-card rounded-2xl p-6 lg:col-span-2 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-chart-simple text-brand-400"></i>
+              Weekly Screen Time Trend (Last 7 Days)
+            </h2>
+            <p class="text-xs text-slate-400 mt-0.5">Comparing daily hours vs target screen quota (4.0 hrs limit line)</p>
+          </div>
+          <span class="text-xs font-semibold text-brand-400 bg-brand-500/10 border border-brand-500/20 px-2.5 py-1 rounded-full">Weekly Avg: 3.2h</span>
+        </div>
+        <div class="h-64 relative">
+          <canvas id="weeklyTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Category Breakdown Doughnut Chart -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-accent-400"></i>
+            Category Distribution
+          </h2>
+          <span class="text-xs font-semibold text-slate-400">Today</span>
+        </div>
+        <div class="h-64 relative flex items-center justify-center">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE ACTIVITY FEED & RULES ENFORCER TABS -->
+    <div class="glass-card rounded-2xl p-6 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-3">
+          <button id="tabLogsBtn" onclick="switchTab('logs')" class="px-4 py-2 rounded-xl text-xs font-bold bg-brand-500 text-white shadow-lg shadow-brand-500/25 transition">
+            <i class="fa-solid fa-wave-square mr-1.5"></i> Live Activity Feed
+          </button>
+          <button id="tabRulesBtn" onclick="switchTab('rules')" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+            <i class="fa-solid fa-sliders mr-1.5"></i> App Restrictions & Limits
+          </button>
+          <button id="tabAlertsBtn" onclick="switchTab('alerts')" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+            <i class="fa-solid fa-bell mr-1.5"></i> Violations & Alerts
+          </button>
+        </div>
+        <span class="text-xs text-slate-500 font-mono"><i class="fa-solid fa-clock text-slate-400 mr-1"></i> Auto-refreshing every 3s</span>
+      </div>
+
+      <!-- Tab 1: Live Activity Feed Table -->
+      <div id="tabLogs" class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-slate-400 border-b border-slate-800 font-bold uppercase tracking-wider">
+              <th class="py-3 px-4">Time</th>
+              <th class="py-3 px-4">Application</th>
+              <th class="py-3 px-4">Window Title</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Duration</th>
+              <th class="py-3 px-4 text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody id="liveLogsBody" class="divide-y divide-slate-800/60 font-medium">
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 text-slate-400 font-mono">10:14:12 AM</td>
+              <td class="py-3 px-4 text-white font-bold flex items-center gap-2">
+                <i class="fa-solid fa-gamepad text-rose-400"></i> RobloxPlayerBeta.exe
+              </td>
+              <td class="py-3 px-4 text-slate-300 truncate max-w-xs">Roblox - Blox Fruits Game</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold">Gaming</span></td>
+              <td class="py-3 px-4 text-slate-400 font-mono">3 sec</td>
+              <td class="py-3 px-4 text-right"><span class="text-emerald-400"><i class="fa-solid fa-check"></i> Recorded</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 text-slate-400 font-mono">10:14:09 AM</td>
+              <td class="py-3 px-4 text-white font-bold flex items-center gap-2">
+                <i class="fa-brands fa-chrome text-blue-400"></i> chrome.exe
+              </td>
+              <td class="py-3 px-4 text-slate-300 truncate max-w-xs">Khan Academy | Computer Programming Intro</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">Education</span></td>
+              <td class="py-3 px-4 text-slate-400 font-mono">3 sec</td>
+              <td class="py-3 px-4 text-right"><span class="text-emerald-400"><i class="fa-solid fa-check"></i> Recorded</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 text-slate-400 font-mono">10:14:06 AM</td>
+              <td class="py-3 px-4 text-white font-bold flex items-center gap-2">
+                <i class="fa-brands fa-youtube text-red-500"></i> msedge.exe
+              </td>
+              <td class="py-3 px-4 text-slate-300 truncate max-w-xs">YouTube - Python for Beginners Full Course</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-semibold">Browsing/Video</span></td>
+              <td class="py-3 px-4 text-slate-400 font-mono">3 sec</td>
+              <td class="py-3 px-4 text-right"><span class="text-emerald-400"><i class="fa-solid fa-check"></i> Recorded</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tab 2: Rules Enforcer -->
+      <div id="tabRules" class="hidden overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-slate-400 border-b border-slate-800 font-bold uppercase tracking-wider">
+              <th class="py-3 px-4">Process Name</th>
+              <th class="py-3 px-4">Friendly Name</th>
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4">Daily Limit</th>
+              <th class="py-3 px-4">Warning Before</th>
+              <th class="py-3 px-4 text-right">Enforcement Policy</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-medium">
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 font-mono text-white">robloxplayerbeta.exe</td>
+              <td class="py-3 px-4 text-slate-200">Roblox Player</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold">Gaming</span></td>
+              <td class="py-3 px-4 text-slate-200 font-bold">60 Minutes</td>
+              <td class="py-3 px-4 text-slate-400">5 min warning</td>
+              <td class="py-3 px-4 text-right"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">Terminate on Limit</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 font-mono text-white">valorant.exe</td>
+              <td class="py-3 px-4 text-slate-200">Valorant</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-semibold">Gaming</span></td>
+              <td class="py-3 px-4 text-slate-200 font-bold">45 Minutes</td>
+              <td class="py-3 px-4 text-slate-400">5 min warning</td>
+              <td class="py-3 px-4 text-right"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">Terminate on Limit</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 font-mono text-white">discord.exe</td>
+              <td class="py-3 px-4 text-slate-200">Discord Chat</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-semibold">Social Media</span></td>
+              <td class="py-3 px-4 text-slate-200 font-bold">30 Minutes</td>
+              <td class="py-3 px-4 text-slate-400">3 min warning</td>
+              <td class="py-3 px-4 text-right"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold">Blocked during Study</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 font-mono text-white">code.exe</td>
+              <td class="py-3 px-4 text-slate-200">Visual Studio Code</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold">Education</span></td>
+              <td class="py-3 px-4 text-slate-200 font-bold">Unlimited</td>
+              <td class="py-3 px-4 text-slate-400">None</td>
+              <td class="py-3 px-4 text-right"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-bold">Always Allowed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tab 3: Alerts & Violations -->
+      <div id="tabAlerts" class="hidden overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead>
+            <tr class="text-slate-400 border-b border-slate-800 font-bold uppercase tracking-wider">
+              <th class="py-3 px-4">Date & Time</th>
+              <th class="py-3 px-4">App Target</th>
+              <th class="py-3 px-4">Alert Type</th>
+              <th class="py-3 px-4">Message Triggered</th>
+              <th class="py-3 px-4 text-right">Action Taken</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-medium">
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 text-slate-400 font-mono">Today, 09:45 AM</td>
+              <td class="py-3 px-4 text-white font-bold">robloxplayerbeta.exe</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-bold">Limit Warning</span></td>
+              <td class="py-3 px-4 text-slate-300">Roblox খেলার আর মাত্র ৫ মিনিট বাকি রয়েছে!</td>
+              <td class="py-3 px-4 text-right"><span class="text-amber-400">Modal Popup Alert</span></td>
+            </tr>
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-4 text-slate-400 font-mono">Yesterday, 08:30 PM</td>
+              <td class="py-3 px-4 text-white font-bold">discord.exe</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 font-bold">Study Mode Violation</span></td>
+              <td class="py-3 px-4 text-slate-300">পড়ার সময়ে সোশ্যাল মিডিয়া বা গেম খেলা নিষিদ্ধ।</td>
+              <td class="py-3 px-4 text-right"><span class="text-rose-400">Process Terminated</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ARCHITECTURE & TECH HIGHLIGHTS -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+      <div class="glass-card rounded-2xl p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-lg">
+          <i class="fa-brands fa-windows"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">Windows Background Agent</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Silent Pythonw client signed with PSF certificates, running under Windows 11 Smart App Control. Auto-registers to Startup registry with single-instance mutex.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-database"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">Offline SQLite-to-PostgreSQL</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Zero data loss architecture. Activity logs are buffered in local SQLite cache when offline and automatically drained to PostgreSQL 16 when network reconnects.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-2xl p-6 space-y-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-mobile-screen"></i>
+        </div>
+        <h3 class="text-base font-bold text-white">Cross-Platform Mobile App</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          React Native dashboard for iOS and Android. Parents can monitor child screen time, change rules remotely, and trigger study mode on the fly.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-5 py-3.5 rounded-xl bg-slate-900 border border-slate-700 shadow-2xl flex items-center gap-3">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+      <span id="toastMsg" class="text-xs font-semibold text-white">Action executed successfully</span>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT FOR CHARTS & SIMULATIONS -->
+  <script>
+    let studyModeActive = false;
+
+    function showToast(msg, isWarning = false) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      toastMsg.innerText = msg;
+      if (isWarning) {
+        toastIcon.className = 'fa-solid fa-triangle-exclamation text-amber-400 text-lg';
+      } else {
+        toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg';
+      }
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    function toggleStudyMode() {
+      studyModeActive = !studyModeActive;
+      const btn = document.getElementById('studyModeBtn');
+      const text = document.getElementById('studyModeText');
+      if (studyModeActive) {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-emerald-600 text-white shadow-lg shadow-emerald-600/30';
+        text.innerText = 'Study Mode: ON';
+        showToast('Study Mode activated! All games and entertainment are strictly blocked.');
+        
+        // Update active app to Khan Academy
+        document.getElementById('activeAppName').innerText = 'Khan Academy (Education)';
+        document.getElementById('activeAppTitle').innerText = 'Khan Academy | High School Math & Science';
+        document.getElementById('activeAppWarning').innerHTML = '<i class="fa-solid fa-check"></i> Always Allowed in Study Mode';
+        document.getElementById('activeAppWarning').className = 'flex items-center gap-2 mt-4 text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg w-fit';
+      } else {
+        btn.className = 'px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600 hover:text-white';
+        text.innerText = 'Study Mode: OFF';
+        showToast('Study Mode deactivated. Normal usage limits restored.');
+      }
+    }
+
+    function simulateEmergencyLock() {
+      showToast('Emergency Lock signal sent! Workstation locked.', true);
+    }
+
+    function simulateLiveEvent() {
+      const apps = [
+        { name: 'chrome.exe', title: 'Wikipedia - Solar System', cat: 'Education', catColor: 'emerald', icon: 'fa-brands fa-chrome text-blue-400' },
+        { name: 'code.exe', title: 'Python - project_assignment.py', cat: 'Education', catColor: 'emerald', icon: 'fa-solid fa-code text-blue-500' },
+        { name: 'robloxplayerbeta.exe', title: 'Roblox - BedWars Squads', cat: 'Gaming', catColor: 'rose', icon: 'fa-solid fa-gamepad text-rose-400' },
+        { name: 'msedge.exe', title: 'Coursera | Machine Learning Specialization', cat: 'Education', catColor: 'emerald', icon: 'fa-brands fa-edge text-teal-400' }
+      ];
+      const randomApp = apps[Math.floor(Math.random() * apps.length)];
+      const tbody = document.getElementById('liveLogsBody');
+      const timeStr = new Date().toLocaleTimeString();
+
+      const newRow = document.createElement('tr');
+      newRow.className = 'hover:bg-slate-800/40 transition animate-pulse';
+      newRow.innerHTML = `
+        <td class="py-3 px-4 text-slate-400 font-mono">${timeStr}</td>
+        <td class="py-3 px-4 text-white font-bold flex items-center gap-2">
+          <i class="${randomApp.icon}"></i> ${randomApp.name}
+        </td>
+        <td class="py-3 px-4 text-slate-300 truncate max-w-xs">${randomApp.title}</td>
+        <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-${randomApp.catColor}-500/10 text-${randomApp.catColor}-400 font-semibold">${randomApp.cat}</span></td>
+        <td class="py-3 px-4 text-slate-400 font-mono">3 sec</td>
+        <td class="py-3 px-4 text-right"><span class="text-emerald-400"><i class="fa-solid fa-check"></i> Recorded</span></td>
+      `;
+      tbody.insertBefore(newRow, tbody.firstChild);
+      showToast(`Recorded new activity: ${randomApp.name}`);
+    }
+
+    function switchTab(tab) {
+      document.getElementById('tabLogs').classList.add('hidden');
+      document.getElementById('tabRules').classList.add('hidden');
+      document.getElementById('tabAlerts').classList.add('hidden');
+
+      document.getElementById('tabLogsBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+      document.getElementById('tabRulesBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+      document.getElementById('tabAlertsBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+
+      if (tab === 'logs') {
+        document.getElementById('tabLogs').classList.remove('hidden');
+        document.getElementById('tabLogsBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold bg-brand-500 text-white shadow-lg shadow-brand-500/25 transition';
+      } else if (tab === 'rules') {
+        document.getElementById('tabRules').classList.remove('hidden');
+        document.getElementById('tabRulesBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold bg-brand-500 text-white shadow-lg shadow-brand-500/25 transition';
+      } else if (tab === 'alerts') {
+        document.getElementById('tabAlerts').classList.remove('hidden');
+        document.getElementById('tabAlertsBtn').className = 'px-4 py-2 rounded-xl text-xs font-bold bg-brand-500 text-white shadow-lg shadow-brand-500/25 transition';
+      }
+    }
+
+    // Initialize Charts on Load
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Weekly Trend Bar Chart
+      const ctxWeekly = document.getElementById('weeklyTrendChart').getContext('2d');
+      new Chart(ctxWeekly, {
+        type: 'bar',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Today'],
+          datasets: [
+            {
+              label: 'Daily Screen Time (Hours)',
+              data: [3.2, 2.8, 3.5, 2.9, 4.2, 4.5, 2.75],
+              backgroundColor: [
+                'rgba(56, 189, 248, 0.7)',
+                'rgba(56, 189, 248, 0.7)',
+                'rgba(56, 189, 248, 0.7)',
+                'rgba(56, 189, 248, 0.7)',
+                'rgba(244, 63, 94, 0.7)',
+                'rgba(244, 63, 94, 0.7)',
+                'rgba(16, 185, 129, 0.85)'
+              ],
+              borderColor: 'transparent',
+              borderRadius: 8,
+              borderSkipped: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.raw} hours`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 6,
+              grid: { color: 'rgba(51, 65, 85, 0.3)' },
+              ticks: { color: '#94a3b8', font: { size: 11 } }
+            },
+            x: {
+              grid: { display: false },
+              ticks: { color: '#cbd5e1', font: { size: 11, weight: '600' } }
+            }
+          }
+        }
+      });
+
+      // 2. Category Doughnut Chart
+      const ctxCat = document.getElementById('categoryChart').getContext('2d');
+      new Chart(ctxCat, {
+        type: 'doughnut',
+        data: {
+          labels: ['Education (36%)', 'Browsing (22%)', 'Gaming (24%)', 'Social (18%)'],
+          datasets: [
+            {
+              data: [36, 22, 24, 18],
+              backgroundColor: ['#38bdf8', '#818cf8', '#f43f5e', '#10b981'],
+              borderWidth: 0,
+              hoverOffset: 6
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: '#cbd5e1', font: { size: 11, family: 'Plus Jakarta Sans' }, boxWidth: 12 }
+            }
+          },
+          cutout: '72%'
+        }
+      });
+    });
+  </script>
+</body>
+</html>
