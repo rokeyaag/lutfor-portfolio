@@ -272,3 +272,15 @@ a{
     gap:20px;
   }
 }
+/* AI Study Assistant Card Hover - Matching Red / Amber-Yellow Glow */
+.project-card.ai-study-assistant-card {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card.ai-study-assistant-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(245, 158, 11, 0.75) !important;
+  box-shadow: 0 20px 45px rgba(244, 63, 94, 0.25), 0 0 35px rgba(245, 158, 11, 0.25) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(244, 63, 94, 0.06), rgba(245, 158, 11, 0.06)) !important;
+}
